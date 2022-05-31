@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package ruinshe.kratos.pwf;
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/protobuf/field_mask.proto";
+
+option go_package = "github.com/ruinshe/kratos-examples/patch-with-fields/apis;apis";
+
+// User Management APIs
+service UserService {
+  rpc UpdateUser(UpdateUserRequest) returns (User) {
+    option (google.api.http) = {
+      patch : "/api/v1/users/{user.id}"
+      body : "user"
+    };
+  }
+}
+
+message User {
+  // The id of the user.
+  string id = 1 [ (google.api.field_behavior) = REQUIRED ];
+
+  // The name of the user.
+  string name = 2;
+
+  // the age of the user.
+  int32 age = 3;
+}
+
+message UpdateUserRequest {
+  User user = 1 [ (google.api.field_behavior) = REQUIRED ];
+
+  // the fields to be updated, the API will perform no-op when the fields is
+  // empty.
+  google.protobuf.FieldMask fields = 200
+      [ (google.api.field_behavior) = OPTIONAL ];
+}
