@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package ruinshe.kratos.pwf;
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+
+option go_package = "github.com/ruinshe/kratos-examples/path-variable-missing/apis;apis";
+
+// User Management APIs
+service UserService {
+  rpc UpdateUser(UpdateUserRequest) returns (User) {
+    option (google.api.http) = {
+      post : "/api/v1/users/{user_id}/actions:updateUser"
+      body : "user"
+    };
+  }
+}
+
+message User {
+  // The id of the user.
+  string id = 1 [ (google.api.field_behavior) = REQUIRED ];
+
+  // The name of the user.
+  string name = 2;
+
+  // The age of the user.
+  int32 age = 3;
+}
+
+message UpdateUserRequest {
+  // The id of the user.
+  string user_id = 1 [ (google.api.field_behavior) = REQUIRED ];;
+
+  // The user to be updated.
+  User user = 2 [ (google.api.field_behavior) = REQUIRED ];
+}

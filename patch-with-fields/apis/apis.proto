@@ -5,6 +5,7 @@ package ruinshe.kratos.pwf;
 import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/field_mask.proto";
+import "google/protobuf/struct.proto";
 
 option go_package = "github.com/ruinshe/kratos-examples/patch-with-fields/apis;apis";
 
@@ -27,6 +28,8 @@ message User {
 
   // the age of the user.
   int32 age = 3;
+
+  map<string, google.protobuf.Value> attributes = 4;
 }
 
 message UpdateUserRequest {
